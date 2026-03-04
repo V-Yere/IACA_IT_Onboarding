@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IT Onboarding – IACA</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+  /* ── RESET & BASE ─────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0f2044;
+    --blue:    #1b4f9c;
+    --sky:     #2d7dd2;
+    --teal:    #0097a7;
+    --accent:  #f0a500;
+    --light:   #f4f7fc;
+    --white:   #ffffff;
+    --text:    #1a2332;
+    --muted:   #5a6478;
+    --border:  #dde3ef;
+    --radius:  10px;
+    --shadow:  0 2px 16px rgba(15,32,68,.10);
+    --shadow-lg: 0 6px 32px rgba(15,32,68,.14);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text);
+    background: var(--light);
+  }
+
+  /* ── SHAREPOINT TOP-BAR ───────────────────────────────────── */
+  .sp-bar {
+    background: var(--navy);
+    color: rgba(255,255,255,.75);
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    letter-spacing: .04em;
+    padding: 0 32px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sp-bar svg { opacity: .7; }
+  .sp-bar strong { color: #fff; font-weight: 600; }
+
+  /* ── SITE HEADER ──────────────────────────────────────────── */
+  .site-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    height: 52px;
+  }
+  .site-logo {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--navy);
+    letter-spacing: -.02em;
+  }
+  .site-logo span { color: var(--sky); }
+  .site-nav { display: flex; gap: 4px; margin-left: auto; }
+  .site-nav a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background .18s, color .18s;
+  }
+  .site-nav a:hover { background: var(--light); color: var(--navy); }
+
+  /* ── HERO ──────────────────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(125deg, var(--navy) 0%, var(--blue) 55%, var(--sky) 100%);
+    color: #fff;
+    padding: 56px 64px 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.25);
+    border-radius: 20px;
+    padding: 4px 14px 4px 10px;
+    font-size: 12px;
+    font-family: 'Sora', sans-serif;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    max-width: 680px;
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero p {
+    font-size: 16px;
+    opacity: .82;
+    max-width: 540px;
+    margin-bottom: 32px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,.12);
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+  .hero-meta-item svg { opacity: .8; }
+
+  /* ── PROGRESS TRACKER ─────────────────────────────────────── */
+  .progress-bar-wrap {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(15,32,68,.06);
+  }
+  .progress-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .progress-steps {
+    display: flex;
+    gap: 0;
+    align-items: center;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .progress-steps::-webkit-scrollbar { height: 3px; }
+  .progress-steps::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .ps-item {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-shrink: 0;
+  }
+  .ps-item a {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background .18s, color .18s;
+    white-space: nowrap;
+  }
+  .ps-item a:hover { background: var(--light); color: var(--navy); }
+  .ps-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sora', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--muted);
+    flex-shrink: 0;
+    transition: all .2s;
+  }
+  .ps-line {
+    width: 28px;
+    height: 2px;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN LAYOUT ──────────────────────────────────────────── */
+  .main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  /* ── SECTION CARD ─────────────────────────────────────────── */
+  .section-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 90px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px 32px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+    transition: background .18s;
+  }
+  .section-header:hover { background: #fafbfd; }
+  .section-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-title {
+    flex: 1;
+  }
+  .section-step {
+    font-family: 'Sora', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .section-title h2 {
+    font-family: 'Sora', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    color: var(--navy);
+  }
+  .section-toggle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--light);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .25s, background .18s;
+    flex-shrink: 0;
+  }
+  .section-header.open .section-toggle { transform: rotate(180deg); background: var(--sky); border-color: var(--sky); }
+  .section-header.open .section-toggle svg path { stroke: #fff; }
+  .section-body {
+    padding: 0 32px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease, padding .3s;
+  }
+  .section-body.open {
+    max-height: 2000px;
+    padding: 28px 32px 32px;
+  }
+
+  /* ── TOOLS GRID ───────────────────────────────────────────── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .tool-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: box-shadow .18s, border-color .18s, transform .18s;
+    cursor: default;
+  }
+  .tool-card:hover { box-shadow: var(--shadow-lg); border-color: #c0cde0; transform: translateY(-2px); }
+  .tool-name {
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .tool-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── STEPS LIST ───────────────────────────────────────────── */
+  .steps-list { display: flex; flex-direction: column; gap: 16px; }
+  .step-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content { flex: 1; }
+  .step-content strong {
+    display: block;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 2px;
+    font-size: 14.5px;
+  }
+  .step-content p, .step-content ul { font-size: 14px; color: var(--muted); }
+  .step-content ul { padding-left: 18px; margin-top: 4px; }
+  .step-content ul li { margin-bottom: 3px; }
+
+  /* ── INFO CALLOUT ─────────────────────────────────────────── */
+  .callout {
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 13.5px;
+  }
+  .callout-info { background: #eef4fb; border-left: 3px solid var(--sky); }
+  .callout-warn { background: #fff8ec; border-left: 3px solid var(--accent); }
+  .callout-tip  { background: #edf8f5; border-left: 3px solid var(--teal); }
+  .callout svg  { flex-shrink: 0; margin-top: 1px; }
+  .callout p    { color: var(--text); line-height: 1.55; }
+  .callout strong { color: var(--navy); }
+
+  /* ── PRINTER FEATURES ─────────────────────────────────────── */
+  .feature-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .feature-pill {
+    background: #eef4fb;
+    border: 1px solid #c8daef;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    color: var(--blue);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ── TWO COLS ─────────────────────────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 680px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ── CHECKLIST FORM ───────────────────────────────────────── */
+  .checklist-wrap { display: flex; flex-direction: column; gap: 14px; }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    transition: border-color .18s, background .18s;
+    cursor: pointer;
+  }
+  .check-item:hover { border-color: var(--sky); background: #f8fbff; }
+  .check-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--sky);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .check-item label {
+    font-size: 14.5px;
+    color: var(--text);
+    cursor: pointer;
+    flex: 1;
+  }
+  .check-item label span { font-size: 12px; color: var(--muted); display: block; margin-top: 1px; }
+  .check-item input:checked ~ label { color: var(--muted); text-decoration: line-through; }
+
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 28px;
+    font-family: 'Sora', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background .18s, transform .15s, box-shadow .18s;
+    text-decoration: none;
+  }
+  .submit-btn:hover { background: var(--navy); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(27,79,156,.3); }
+
+  /* ── DIVIDER ──────────────────────────────────────────────── */
+  .divider { height: 1px; background: var(--border); margin: 24px 0; }
+
+  /* ── CONTACT CARD ─────────────────────────────────────────── */
+  .contact-card {
+    background: linear-gradient(135deg, var(--navy) 0%, #1a3a72 100%);
+    border-radius: 14px;
+    padding: 32px 36px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 32px;
+    box-shadow: var(--shadow-lg);
+  }
+  .contact-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.15);
+    border: 2px solid rgba(255,255,255,.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Sora', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .contact-info h3 { font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+  .contact-info p  { font-size: 13px; opacity: .75; }
+  .contact-links   { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,.15);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12.5px;
+    color: #fff;
+    text-decoration: none;
+    transition: background .18s;
+  }
+  .contact-link:hover { background: rgba(255,255,255,.25); }
+
+  /* ── WELCOME BANNER ───────────────────────────────────────── */
+  .welcome-banner {
+    text-align: center;
+    padding: 32px;
+    background: linear-gradient(135deg, #f0faf8 0%, #eef4fb 100%);
+    border: 1px solid #c8e8e2;
+    border-radius: 14px;
+    margin-bottom: 32px;
+  }
+  .welcome-banner .emoji { font-size: 40px; margin-bottom: 12px; }
+  .welcome-banner h2 { font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .welcome-banner p { color: var(--muted); max-width: 500px; margin: 0 auto; }
+
+  /* ── SECTION COLOR THEMES ─────────────────────────────────── */
+  .icon-blue  { background: #dbeafe; }
+  .icon-teal  { background: #d0f5f0; }
+  .icon-green { background: #dcfce7; }
+  .icon-amber { background: #fef3c7; }
+  .icon-indigo{ background: #e0e7ff; }
+  .icon-rose  { background: #ffe4e6; }
+  .icon-sky   { background: #e0f2fe; }
+  .icon-purple{ background: #ede9fe; }
+
+  /* ── ANIMATIONS ───────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .section-card { animation: fadeUp .35s ease both; }
+  .section-card:nth-child(1) { animation-delay: .05s; }
+  .section-card:nth-child(2) { animation-delay: .10s; }
+  .section-card:nth-child(3) { animation-delay: .15s; }
+  .section-card:nth-child(4) { animation-delay: .20s; }
+  .section-card:nth-child(5) { animation-delay: .25s; }
+  .section-card:nth-child(6) { animation-delay: .30s; }
+  .section-card:nth-child(7) { animation-delay: .35s; }
+  .section-card:nth-child(8) { animation-delay: .40s; }
+
+  /* ── PROGRESS COUNTER ─────────────────────────────────────── */
+  #progress-counter {
+    background: var(--teal);
+    color: #fff;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: auto;
+    display: inline-block;
+  }
+</style>
+</head>
+<body>
+
+<!-- SharePoint top bar -->
+<div class="sp-bar">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="1" width="6" height="6" rx="1" fill="white"/><rect x="9" y="1" width="6" height="6" rx="1" fill="white"/><rect x="1" y="9" width="6" height="6" rx="1" fill="white"/><rect x="9" y="9" width="6" height="6" rx="1" fill="white"/></svg>
+  <strong>SharePoint</strong> &nbsp;›&nbsp; ICT &nbsp;›&nbsp; IT Onboarding
+</div>
+
+<!-- Site header -->
+<header class="site-header">
+  <div class="site-logo">IACA <span>Intranet</span></div>
+  <nav class="site-nav">
+    <a href="#">Home</a>
+    <a href="#">Academic Programmes</a>
+    <a href="#">Research</a>
+    <a href="#">General Management</a>
+    <a href="#" style="color:var(--blue);font-weight:600;">ICT</a>
+  </nav>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" stroke="white" stroke-width="1.5"/><path d="M6 4v2.5L7.5 8" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+    IT Onboarding Guide
+  </div>
+  <h1>Welcome to <span>IACA</span> —<br/>Let's get you set up.</h1>
+  <p>This guide walks you through everything you need to get started with IACA's IT systems. Complete each step at your own pace — IT is here to help whenever you need it.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M7 1a6 6 0 100 12A6 6 0 007 1z" stroke="white" stroke-width="1.3"/><path d="M7 4v3l2 1.5" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg>
+      ~30 minutes to complete
+    </div>
+    <div class="hero-meta-item">
+      <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><rect x="1" y="2" width="12" height="10" rx="1.5" stroke="white" stroke-width="1.3"/><path d="M1 5h12" stroke="white" stroke-width="1.3"/><path d="M5 8h4" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg>
+      8 steps
+    </div>
+    <div class="hero-meta-item">
+      <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><circle cx="7" cy="5" r="2.5" stroke="white" stroke-width="1.3"/><path d="M2 12c0-2.761 2.239-5 5-5s5 2.239 5 5" stroke="white" stroke-width="1.3" stroke-linecap="round"/></svg>
+      IT contact: Albi Meta
+    </div>
+  </div>
+</div>
+
+<!-- Progress bar -->
+<div class="progress-bar-wrap">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+    <div class="progress-label">Your onboarding steps</div>
+    <span id="progress-counter">0 / 8 done</span>
+  </div>
+  <div class="progress-steps">
+    <div class="ps-item"><a href="#step1"><div class="ps-dot" id="dot1">1</div>&nbsp;M365 Overview</a></div>
+    <div class="ps-line"></div>
+    <div class="ps-item"><a href="#step2"><div class="ps-dot" id="dot2">2</div>&nbsp;Outlook</a></div>
+    <div class="ps-line"></div>
+    <div class="ps-item"><a href="#step3"><div class="ps-dot" id="dot3">3</div>&nbsp;Teams</a></div>
+    <div class="ps-line"></div>
+    <div class="ps-item"><a href="#step4"><div class="ps-dot" id="dot4">4</div>&nbsp;SharePoint</a></div>
+    <div class="ps-line"></div>
+    <div class="ps-item"><a href="#step5"><div class="ps-dot" id="dot5">5</div>&nbsp;Password</a></div>
+    <div class="ps-line"></div>
+    <div class="ps-item"><a href="#step6"><div class="ps-dot" id="dot6">6</div>&nbsp;MFA</a></div>
+    <div class="ps-line"></div>
+    <div class="ps-item"><a href="#step7"><div class="ps-dot" id="dot7">7</div>&nbsp;Printer</a></div>
+    <div class="ps-line"></div>
+    <div class="ps-item"><a href="#step8"><div class="ps-dot" id="dot8">8</div>&nbsp;Checklist</a></div>
+  </div>
+</div>
+
+<!-- Main content -->
+<main class="main">
+
+  <div class="welcome-banner">
+    <div class="emoji">👋</div>
+    <h2>Welcome to the IACA team!</h2>
+    <p>Follow the steps below from top to bottom. Each section can be expanded. Once you've finished, complete the final checklist so IT knows you're all set.</p>
+  </div>
+
+  <!-- STEP 1 – Microsoft 365 Overview -->
+  <div class="section-card" id="step1">
+    <div class="section-header open" onclick="toggle(this)">
+      <div class="section-icon icon-blue">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="2" width="8" height="8" rx="1.5" fill="#1b4f9c"/><rect x="12" y="2" width="8" height="8" rx="1.5" fill="#2d7dd2"/><rect x="2" y="12" width="8" height="8" rx="1.5" fill="#0097a7"/><rect x="12" y="12" width="8" height="8" rx="1.5" fill="#f0a500"/></svg>
+      </div>
+      <div class="section-title">
+        <div class="section-step">Step 1</div>
+        <h2>Get to Know Microsoft 365</h2>
+      </div>
+      <div class="section-toggle open">
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="section-body open">
+      <p style="color:var(--muted);margin-bottom:20px;font-size:14.5px;">IACA uses <strong>Microsoft 365</strong> for virtually all day-to-day work. Here are the main tools you'll use:</p>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#0078d4"/><path d="M8 8h12v12H8z" fill="white" fill-opacity=".3"/><path d="M10 12h8M10 15h5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <div class="tool-name">Microsoft Teams</div>
+          <div class="tool-desc">Internal chats, video calls, and team channels. Your primary communication hub.</div>
+        </div>
+        <div class="tool-card">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#0078d4"/><path d="M7 9h14l-7 8-7-8z" fill="white" fill-opacity=".9"/></svg>
+          <div class="tool-name">Outlook</div>
+          <div class="tool-desc">Email and calendar management. Access via browser or the desktop app.</div>
+        </div>
+        <div class="tool-card">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#0f7b6c"/><path d="M7 8h14v12H7z" fill="white" fill-opacity=".25"/><path d="M10 12h8M10 15h8M10 18h5" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <div class="tool-name">SharePoint</div>
+          <div class="tool-desc">IACA's intranet and shared document storage. You're here right now.</div>
+        </div>
+        <div class="tool-card">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#0364b8"/><path d="M9 18V12l5-5 5 5v6H9z" fill="white" fill-opacity=".3"/><path d="M14 7v11M9 12h10" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <div class="tool-name">OneDrive</div>
+          <div class="tool-desc">Your personal cloud file storage. Keep your work files here and access them anywhere.</div>
+        </div>
+        <div class="tool-card">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><rect width="28" height="28" rx="6" fill="#742774"/><path d="M8 14h12M14 8v12" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <div class="tool-name">Power Automate &amp; Apps</div>
+          <div class="tool-desc">Workflow automation and custom tools used by specific teams. IT will guide you if needed.</div>
+        </div>
+      </div>
+      <div class="callout callout-info">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" stroke="#2d7dd2" stroke-width="1.4"/><path d="M8 7v4M8 5.5v.5" stroke="#2d7dd2" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <p>Access all Microsoft 365 apps at <strong>office.com</strong> — just log in with your IACA email and password.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 – Outlook / Email -->
+  <div class="section-card" id="step2">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon icon-sky">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="13" rx="2" stroke="#0078d4" stroke-width="1.6"/><path d="M2 7l9 6 9-6" stroke="#0078d4" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </div>
+      <div class="section-title">
+        <div class="section-step">Step 2</div>
+        <h2>Access Your Email (Outlook)</h2>
+      </div>
+      <div class="section-toggle">
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="color:var(--muted);font-size:14px;margin-bottom:16px;">You can access your IACA email in two ways:</p>
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <strong>Web browser (recommended for first access)</strong>
+                <p>Go to <a href="https://outlook.office.com" target="_blank" style="color:var(--sky);">outlook.office.com</a>, sign in with your IACA email address and temporary password.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <strong>Desktop App (Outlook)</strong>
+                <p>Open Outlook on your computer. When prompted, add your IACA email account. IT can assist with the initial setup if needed.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <strong>Mobile (optional)</strong>
+                <p>Install Microsoft Outlook from the App Store or Google Play and sign in with your IACA account to access email on the go.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="callout callout-warn" style="margin-top:0;">
+            <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 2L1.5 13.5h13L8 2z" stroke="#f0a500" stroke-width="1.4"/><path d="M8 7v3M8 11.5v.5" stroke="#f0a500" stroke-width="1.4" stroke-linecap="round"/></svg>
+            <p><strong>First login:</strong> You will be asked to change your temporary password immediately. See <a href="#step5" style="color:var(--sky);">Step 5</a> for instructions.</p>
+          </div>
+          <div class="callout callout-tip" style="margin-top:12px;">
+            <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 2a5 5 0 100 10A5 5 0 008 2z" stroke="#0097a7" stroke-width="1.4"/><path d="M6 8l1.5 1.5L10 6" stroke="#0097a7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <p><strong>Tip:</strong> Set up your email signature in Outlook settings. IT can share the standard IACA signature template on request.</p>
+          </div>
+          <div class="callout callout-info" style="margin-top:12px;">
+            <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" stroke="#2d7dd2" stroke-width="1.4"/><path d="M8 7v4M8 5.5v.5" stroke="#2d7dd2" stroke-width="1.4" stroke-linecap="round"/></svg>
+            <p>Your email format is: <strong>firstname.lastname@iaca.int</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 – Teams -->
+  <div class="section-card" id="step3">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon icon-indigo">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="7" y="2" width="8" height="8" rx="4" stroke="#5b5fc7" stroke-width="1.6"/><path d="M2 19c0-3.866 4.029-7 9-7s9 3.134 9 7" stroke="#5b5fc7" stroke-width="1.6" stroke-linecap="round"/><circle cx="17" cy="6" r="2.5" stroke="#5b5fc7" stroke-width="1.4"/></svg>
+      </div>
+      <div class="section-title">
+        <div class="section-step">Step 3</div>
+        <h2>Get Started with Microsoft Teams</h2>
+      </div>
+      <div class="section-toggle">
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>Download &amp; install Teams</strong>
+            <p>Download Microsoft Teams for your device at <a href="https://teams.microsoft.com/download" target="_blank" style="color:var(--sky);">teams.microsoft.com/download</a>, or access it in your browser at <a href="https://teams.microsoft.com" target="_blank" style="color:var(--sky);">teams.microsoft.com</a>.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>Sign in</strong>
+            <p>Use your IACA email address and password. If prompted for MFA, see <a href="#step6" style="color:var(--sky);">Step 6</a>.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>Join your team channels</strong>
+            <p>Your manager or IT will add you to relevant team channels. You can also find teams using the "Teams" tab on the left-hand side panel.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <strong>Set your status &amp; notifications</strong>
+            <p>Click your profile picture in the top right to set your availability status and configure your notification preferences to avoid overload.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-tip" style="margin-top:20px;">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 2a5 5 0 100 10A5 5 0 008 2z" stroke="#0097a7" stroke-width="1.4"/><path d="M6 8l1.5 1.5L10 6" stroke="#0097a7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <p><strong>Tip:</strong> Use the Teams calendar feature for scheduling meetings — it syncs automatically with your Outlook calendar.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 – SharePoint & Files -->
+  <div class="section-card" id="step4">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon icon-teal">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 5h14a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z" stroke="#0f7b6c" stroke-width="1.6"/><path d="M3 8h16M8 8v9" stroke="#0f7b6c" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </div>
+      <div class="section-title">
+        <div class="section-step">Step 4</div>
+        <h2>SharePoint &amp; Working with Files</h2>
+      </div>
+      <div class="section-toggle">
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:16px;"><strong style="color:var(--navy);">SharePoint</strong> is IACA's intranet — it hosts team pages, announcements, policies, and shared document libraries.</p>
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <strong>Access SharePoint</strong>
+                <p>Go to <a href="https://iaca1.sharepoint.com" target="_blank" style="color:var(--sky);">iaca1.sharepoint.com</a> and sign in with your IACA account. You can also reach it via office.com → SharePoint.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <strong>Navigate your team site</strong>
+                <p>Each department has its own SharePoint site. Your manager will share the link to your team's site. Use the top navigation to browse pages.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <strong>Work with documents</strong>
+                <ul>
+                  <li>Open files directly in the browser (Word, Excel, PowerPoint)</li>
+                  <li>Use <em>Sync</em> to access SharePoint folders from Windows Explorer</li>
+                  <li>Co-edit documents in real time with colleagues</li>
+                  <li>Right-click → <em>Share</em> to share a link to any file</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:14px;color:var(--muted);margin-bottom:16px;"><strong style="color:var(--navy);">OneDrive</strong> is your personal file space — use it for files you're working on individually before sharing.</p>
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-num">A</div>
+              <div class="step-content">
+                <strong>Access OneDrive</strong>
+                <p>Go to <a href="https://onedrive.live.com" target="_blank" style="color:var(--sky);">onedrive.com</a> or find it in the Microsoft 365 app launcher (the 9-dot grid).</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">B</div>
+              <div class="step-content">
+                <strong>Sync to your computer</strong>
+                <p>Install the OneDrive desktop sync client and sign in. Your files will appear directly in File Explorer / Finder for easy offline access.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">C</div>
+              <div class="step-content">
+                <strong>Scanning &amp; uploads</strong>
+                <p>The printer can scan documents directly to your OneDrive — see <a href="#step7" style="color:var(--sky);">Step 7</a> for details.</p>
+              </div>
+            </div>
+          </div>
+          <div class="callout callout-warn" style="margin-top:16px;">
+            <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 2L1.5 13.5h13L8 2z" stroke="#f0a500" stroke-width="1.4"/><path d="M8 7v3M8 11.5v.5" stroke="#f0a500" stroke-width="1.4" stroke-linecap="round"/></svg>
+            <p>Store shared/team files on <strong>SharePoint</strong>, not OneDrive. OneDrive is for personal or draft documents only.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5 – Change Password -->
+  <div class="section-card" id="step5">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon icon-amber">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="5" y="10" width="12" height="9" rx="2" stroke="#d97706" stroke-width="1.6"/><path d="M8 10V7a3 3 0 016 0v3" stroke="#d97706" stroke-width="1.6" stroke-linecap="round"/><circle cx="11" cy="14.5" r="1.5" fill="#d97706"/></svg>
+      </div>
+      <div class="section-title">
+        <div class="section-step">Step 5</div>
+        <h2>Change Your Password</h2>
+      </div>
+      <div class="section-toggle">
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="section-body">
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>First-time login</strong>
+            <p>When you first sign into any Microsoft 365 service, you will be automatically prompted to create a new personal password. Do this before anything else.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>Change password later</strong>
+            <p>Go to <a href="https://myaccount.microsoft.com" target="_blank" style="color:var(--sky);">myaccount.microsoft.com</a> → <em>Password</em> → <em>Change password</em>. Enter your current password, then your new one.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>Forgot your password?</strong>
+            <p>Use the Self-Service Password Reset at <a href="https://aka.ms/sspr" target="_blank" style="color:var(--sky);">aka.ms/sspr</a>. You'll need to have set up MFA first (see Step 6). Alternatively, contact IT directly.</p>
+          </div>
+        </div>
+      </div>
+      <div class="callout callout-warn" style="margin-top:20px;">
+        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 2L1.5 13.5h13L8 2z" stroke="#f0a500" stroke-width="1.4"/><path d="M8 7v3M8 11.5v.5" stroke="#f0a500" stroke-width="1.4" stroke-linecap="round"/></svg>
+        <p><strong>Password rules:</strong> Minimum 8 characters, must include uppercase, lowercase, a number, and a symbol. Do not reuse recent passwords.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 – MFA -->
+  <div class="section-card" id="step6">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon icon-green">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2L4 5v6c0 4.418 3.134 8.56 7 9.5C14.866 19.56 18 15.418 18 11V5l-7-3z" stroke="#16a34a" stroke-width="1.6"/><path d="M8 11l2 2 4-4" stroke="#16a34a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="section-title">
+        <div class="section-step">Step 6</div>
+        <h2>Set Up Multi-Factor Authentication (MFA)</h2>
+      </div>
+      <div class="section-toggle">
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="section-body">
+      <p style="font-size:14.5px;color:var(--muted);margin-bottom:20px;">MFA adds a second layer of security to your account — even if someone gets your password, they can't log in without your phone. <strong style="color:var(--navy);">This is mandatory at IACA.</strong></p>
+      <div class="two-col">
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="step-content">
+              <strong>Go to security setup</strong>
+              <p>Visit <a href="https://aka.ms/mfasetup" target="_blank" style="color:var(--sky);">aka.ms/mfasetup</a> and sign in with your IACA account.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="step-content">
+              <strong>Add a sign-in method</strong>
+              <p>Click <em>"+ Add method"</em> and choose one of the options below (Microsoft Authenticator is recommended).</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="step-content">
+              <strong>Follow the setup wizard</strong>
+              <p>For the Authenticator app: download the app on your phone → scan the QR code shown on screen → enter the verification code to confirm.</p>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="step-content">
+              <strong>Test it</strong>
+              <p>Sign out and sign back in — you should now be prompted for a second verification. Contact IT if you encounter issues.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em;">Available methods</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;gap:12px;align-items:center;">
+              <div style="width:36px;height:36px;border-radius:8px;background:#eef4fb;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="18" height="18" fill="none" viewBox="0 0 18 18"><rect x="4" y="1" width="10" height="16" rx="2" stroke="#1b4f9c" stroke-width="1.4"/><path d="M7 14h4" stroke="#1b4f9c" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div style="font-size:13.5px;font-weight:600;color:var(--navy);">Microsoft Authenticator App ⭐ Recommended</div>
+                <div style="font-size:12.5px;color:var(--muted);">Approve sign-ins with a tap — fast and secure.</div>
+              </div>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;gap:12px;align-items:center;">
+              <div style="width:36px;height:36px;border-radius:8px;background:#eef4fb;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="18" height="18" fill="none" viewBox="0 0 18 18"><path d="M3 5.5A1.5 1.5 0 014.5 4h9A1.5 1.5 0 0115 5.5v7a1.5 1.5 0 01-1.5 1.5h-9A1.5 1.5 0 013 12.5v-7z" stroke="#1b4f9c" stroke-width="1.4"/><path d="M3 7h12" stroke="#1b4f9c" stroke-width="1.4"/></svg>
+              </div>
+              <div>
+                <div style="font-size:13.5px;font-weight:600;color:var(--navy);">SMS Text Message</div>
+                <div style="font-size:12.5px;color:var(--muted);">Receive a code via text message to your phone number.</div>
+              </div>
+            </div>
+            <div style="border:1px solid var(--border);border-radius:8px;padding:12px 16px;display:flex;gap:12px;align-items:center;">
+              <div style="width:36px;height:36px;border-radius:8px;background:#eef4fb;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="18" height="18" fill="none" viewBox="0 0 18 18"><path d="M3 5.5h12v7H3z" stroke="#1b4f9c" stroke-width="1.4" rx="1"/><path d="M3 7.5l6 3.5 6-3.5" stroke="#1b4f9c" stroke-width="1.4" stroke-linecap="round"/></svg>
+              </div>
+              <div>
+                <div style="font-size:13.5px;font-weight:600;color:var(--navy);">Email (backup)</div>
+                <div style="font-size:12.5px;color:var(--muted);">Use a personal email as a backup recovery method.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 – Printer -->
+  <div class="section-card" id="step7">
+    <div class="section-header" onclick="toggle(this)">
+      <div class="section-icon icon-purple">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M6 7V4h10v3" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round"/><rect x="3" y="7" width="16" height="9" rx="1.5" stroke="#7c3aed" stroke-width="1.6"/><path d="M6 16v2h10v-2" stroke="#7c3aed" stroke-width="1.6" stroke-linecap="round"/><circle cx="15.5" cy="11.5" r="1" fill="#7c3aed"/></svg>
+      </div>
+      <div class="section-title">
+        <div class="section-step">Step 7</div>
+        <h2>Using the Printer (Konica Minolta Workplace Pure)</h2>
+      </div>
+      <div class="section-toggle">
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="section-body">
+      <p style="font-size:14.5px;color:var(--muted);margin-bottom:16px;">IACA uses <strong style="color:var(--navy);">Konica Minolta's Workplace Pure</strong> system for printing and scanning.</p>
+      <div class="feature-pills">
+        <div class="feature-pill">✅ Print from / scan to OneDrive</div>
+        <div class="feature-pill">✅ Scan to email</div>
+        <div class="feature-pill">✅ Print multiple PDFs at once</div>
+        <div class="feature-pill">✅ Badge or PIN login</div>
+      </div>
+
+      <div class="two-col">
+        <div>
+          <p style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em;">Getting Started</p>
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <strong>Driver installation (IT will do this)</strong>
+                <p>IT will install the Konica Minolta Workplace Pure printer driver on your computer. It will then appear in your list of printers.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <strong>First-time login</strong>
+                <p>When you print for the first time, a login window appears on the right side of your screen. Select the <strong>IACA domain</strong>, then sign in with your IACA email and password.</p>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <strong>Badge &amp; PIN setup</strong>
+                <p>IT will link your staff badge to the printer. If you forget your badge, you can also print using a PIN code (assigned by IT).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em;">How to Print</p>
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-num">A</div>
+              <div class="step-content">
+                <strong>From your computer</strong>
+                <ul>
+                  <li>Select <em>Konica Minolta Workplace Pure</em> from your print dialog</li>
+                  <li>To print multiple PDFs: drag and drop them into the print window</li>
+                  <li>Walk to the printer, then tap your badge <em>or</em> search your name and enter your PIN</li>
+                  <li>Select which jobs to print, then confirm</li>
+                </ul>
+              </div>
+            </div>
+            <div class="step-item">
+              <div class="step-num">B</div>
+              <div class="step-content">
+                <strong>Print from OneDrive (Pull Print)</strong>
+                <p>Use the Pull Print feature on the printer screen to access your OneDrive directly and print files from there. PDFs work best.</p>
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <p style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em;">How to Scan</p>
+          <div class="steps-list">
+            <div class="step-item">
+              <div class="step-num">C</div>
+              <div class="step-content">
+                <strong>Scan to OneDrive or Email</strong>
+                <ul>
+                  <li>On the printer, tap <strong>Scan</strong></li>
+                  <li>Choose <strong>OneDrive</strong> (recommended) or <strong>Email</strong></li>
+                  <li>Optionally: rename the file, choose format (PDF, JPG…), adjust settings, pick a OneDrive folder</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="callout callout-tip" style="margin-top:14px;">
+            <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 2a5 5 0 100 10A5 5 0 008 2z" stroke="#0097a7" stroke-width="1.4"/><path d="M6 8l1.5 1.5L10 6" stroke="#0097a7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <p>Prefer scanning to <strong>OneDrive</strong> over email to avoid filling up your mailbox.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 8 – Checklist -->
+  <div class="section-card" id="step8">
+    <div class="section-header open" onclick="toggle(this)">
+      <div class="section-icon icon-rose">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" rx="2" stroke="#e11d48" stroke-width="1.6"/><path d="M7 11l3 3 5-5" stroke="#e11d48" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="section-title">
+        <div class="section-step">Step 8 – Final Step</div>
+        <h2>Onboarding Completion Checklist</h2>
+      </div>
+      <div class="section-toggle open">
+        <svg width="14" height="14" fill="none" viewBox="0 0 14 14"><path d="M3 5l4 4 4-4" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    </div>
+    <div class="section-body open">
+      <p style="color:var(--muted);font-size:14.5px;margin-bottom:20px;">Tick off each item as you complete it. Once all items are checked, submit the form below to let IT know you're fully set up. 🎉</p>
+      <div class="checklist-wrap" id="checklist">
+        <label class="check-item">
+          <input type="checkbox" data-step="dot1" onchange="updateProgress()" />
+          <label>
+            I have logged in to Microsoft 365 (office.com)
+            <span>Outlook, Teams, SharePoint — all accessible</span>
+          </label>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-step="dot2" onchange="updateProgress()" />
+          <label>
+            I can access and send emails from Outlook
+            <span>Via browser or desktop app</span>
+          </label>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-step="dot3" onchange="updateProgress()" />
+          <label>
+            I have installed and signed into Microsoft Teams
+            <span>And joined my team channel(s)</span>
+          </label>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-step="dot4" onchange="updateProgress()" />
+          <label>
+            I can navigate SharePoint and open documents
+            <span>Including OneDrive file access</span>
+          </label>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-step="dot5" onchange="updateProgress()" />
+          <label>
+            I have changed my temporary password
+            <span>And set a strong personal password</span>
+          </label>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-step="dot6" onchange="updateProgress()" />
+          <label>
+            I have set up Multi-Factor Authentication (MFA)
+            <span>Via the Authenticator app or SMS</span>
+          </label>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-step="dot7" onchange="updateProgress()" />
+          <label>
+            I can print and scan using the Konica Minolta printer
+            <span>Badge / PIN registered with IT</span>
+          </label>
+        </label>
+        <label class="check-item">
+          <input type="checkbox" data-step="dot8" onchange="updateProgress()" />
+          <label>
+            I have read this entire onboarding guide
+            <span>And I know where to find it again</span>
+          </label>
+        </label>
+      </div>
+
+      <div style="margin-top:24px;padding:20px;background:var(--light);border-radius:10px;border:1px solid var(--border);">
+        <p style="font-size:14px;color:var(--muted);margin-bottom:14px;">Once all steps are completed, click the button below to open the official Microsoft Form and confirm your onboarding is complete:</p>
+        <a class="submit-btn" href="https://forms.office.com/pages/responsepage.aspx?id=dDPA1H7lmEGlDfjQ98MIcc7GztV9EKZJk13UAFXDwYZUNkhMSFIzR01aUFJQTEc4WFBHSU0wTjZNNS4u&origin=lprLink&route=shorturl" target="_blank">
+          <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Submit Onboarding Form
+        </a>
+        <p id="completion-msg" style="display:none;margin-top:12px;font-size:14px;color:#16a34a;font-weight:600;">🎉 All steps checked! You're ready to submit.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- IT Contact -->
+  <div class="contact-card">
+    <div class="contact-avatar">AM</div>
+    <div class="contact-info">
+      <h3>Albi Meta — IT Support</h3>
+      <p>Information Technology Officer · IACA</p>
+      <p style="margin-top:3px;opacity:.65;">Need help with any step? Reach out — we're here to support you.</p>
+      <div class="contact-links">
+        <a href="mailto:albi.meta@iaca.int" class="contact-link">
+          <svg width="13" height="13" fill="none" viewBox="0 0 13 13"><rect x="1" y="2.5" width="11" height="8" rx="1" stroke="white" stroke-width="1.2"/><path d="M1 4l5.5 3.5L12 4" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          albi.meta@iaca.int
+        </a>
+        <a href="#" class="contact-link">
+          <svg width="13" height="13" fill="none" viewBox="0 0 13 13"><path d="M2 4.5h9v5.5H2z" stroke="white" stroke-width="1.2" rx="1"/><path d="M2 5.5l4.5 2.5L11 5.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          Message on Teams
+        </a>
+        <a href="https://iaca1.sharepoint.com/sites/ICT2" target="_blank" class="contact-link">
+          <svg width="13" height="13" fill="none" viewBox="0 0 13 13"><circle cx="6.5" cy="6.5" r="5" stroke="white" stroke-width="1.2"/><path d="M6.5 1.5C5 4 5 9 6.5 11.5M6.5 1.5C8 4 8 9 6.5 11.5M1.5 6.5h10" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+          ICT SharePoint site
+        </a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // Toggle accordion
+  function toggle(header) {
+    const body = header.nextElementSibling;
+    const isOpen = header.classList.contains('open');
+    header.classList.toggle('open', !isOpen);
+    body.classList.toggle('open', !isOpen);
+  }
+
+  // Progress tracking
+  function updateProgress() {
+    const boxes = document.querySelectorAll('#checklist input[type="checkbox"]');
+    let done = 0;
+    boxes.forEach((box, i) => {
+      const dotId = box.dataset.step;
+      const dot = document.getElementById(dotId);
+      if (box.checked) {
+        done++;
+        dot.style.background = '#0097a7';
+        dot.style.borderColor = '#0097a7';
+        dot.style.color = '#fff';
+        dot.innerHTML = '✓';
+      } else {
+        dot.style.background = '';
+        dot.style.borderColor = '';
+        dot.style.color = '';
+        dot.innerHTML = dotId.replace('dot','');
+      }
+    });
+    document.getElementById('progress-counter').textContent = done + ' / 8 done';
+    document.getElementById('completion-msg').style.display = done === 8 ? 'block' : 'none';
+  }
+</script>
+</body>
+</html>
